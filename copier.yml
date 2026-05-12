@@ -1,7 +1,3 @@
-# ─────────────────────────────────────────────
-#  Copier – Python project template questions
-# ─────────────────────────────────────────────
-
 project_name:
   type: str
   help: "Human-readable project name (e.g. My Awesome Library)"
@@ -48,8 +44,13 @@ use_github_actions:
   help: "Add a GitHub Actions CI workflow?"
   default: true
 
-# ─────────────────────────────────────────────
-#  Copier engine / meta settings
-# ─────────────────────────────────────────────
 _min_copier_version: "9"
 _subdirectory: template
+
+# Copier excludes dot-directories by default.
+# This override restores them so .vscode, .github, .gitignore etc. are copied.
+_exclude:
+  - "__pycache__"
+  - "*.py[co]"
+  - ".git"
+  - ".DS_Store"
