@@ -29,46 +29,94 @@ dev-dependencies = [
 ]
 
 # ── Ruff ─────────────────────────────────────────────────────────────────────
+# Google Python Style Guide – mapped to ruff rules
+# Reference: google.github.io/styleguide/pyguide (2026-compact)
+
 [tool.ruff]
 target-version = "py{{ python_version | replace('.', '') }}"
-line-length = 88
+line-length = 120          # Google: line_max = 120
 src = ["src"]
 
 [tool.ruff.lint]
 select = [
-    "E",   # pycodestyle errors
-    "W",   # pycodestyle warnings
-    "F",   # pyflakes
-    "I",   # isort
-    "B",   # flake8-bugbear
-    "C4",  # flake8-comprehensions
-    "UP",  # pyupgrade
-    "N",   # pep8-naming
-    "SIM", # flake8-simplify
-    "TCH", # flake8-type-checking
-    "RUF", # ruff-specific rules
-    "ANN", # flake8-annotations
-    "D",   # pydocstyle
+    "E",    # pycodestyle errors
+    "W",    # pycodestyle warnings
+    "F",    # pyflakes (undefined names, unused imports, import *)
+    "I",    # isort – enforces Google import ordering
+    "B",    # flake8-bugbear (B006 = no mutable defaults)
+    "C4",   # flake8-comprehensions (max 1 for-clause, 1 if-clause)
+    "UP",   # pyupgrade – keep syntax modern (Google: __future__ annotations)
+    "N",    # pep8-naming – CapWords classes, lower_snake funcs, UPPER constants
+    "SIM",  # flake8-simplify – truthiness rules (SIM210/SIM211/SIM212)
+    "TCH",  # type-checking block imports
+    "RUF",  # ruff-specific rules
+    "ANN",  # annotations – Google: typing strongly encouraged
+    "D",    # pydocstyle – Google docstring format
+    "TID",  # flake8-tidy-imports (TID252 = ban relative imports)
+    "PL",   # pylint rules (PLR/PLC/PLE/PLW)
+    "TRY",  # exception handling best practices
+    "PERF", # performance anti-patterns
+    "PIE",  # misc improvements
+    "FBT",  # boolean trap (no positional bool params)
+    "G",    # flake8-logging-format
 ]
+
 ignore = [
-    "D100", # Missing docstring in public module  (optional – remove to enforce)
-    "D104", # Missing docstring in public package (optional)
-    "ANN101", # Missing type annotation for `self`
-    "ANN102", # Missing type annotation for `cls`
+    # Docstrings – relax module/package level (remove to enforce)
+    "D100",    # missing docstring in public module
+    "D104",    # missing docstring in public package
+
+    # Annotations – self/cls don't need annotation
+    "ANN101",
+    "ANN102",
+
+    # Pylint – overly strict defaults
+    "PLR0913", # too many arguments (Google sets no hard limit)
+    "PLR2004", # magic value comparison (too noisy)
+
+    # Exceptions – allow descriptive messages in raise
+    "TRY003",
+
+    # Comprehensions
+    "C417",
 ]
 
 [tool.ruff.lint.per-file-ignores]
-"tests/**" = ["ANN", "D"]   # relax annotations + docstrings in tests
+"tests/**" = [
+    "ANN",     # no annotations required in tests
+    "D",       # no docstrings required in tests
+    "FBT",     # bool params OK in pytest parametrize
+    "PLR2004", # magic values OK in assertions
+    "S101",    # assert OK in tests
+]
 
-[tool.ruff.lint.pydocstyle]
-convention = "google"
+# ── Google import rules ───────────────────────────────────────────────────────
+# Allowed:  import pkg.mod | from pkg import mod | from pkg import mod as alias
+# Banned:   relative imports | import * | from pkg.mod import Class
+[tool.ruff.lint.flake8-tidy-imports]
+ban-relative-imports = "all"
 
 [tool.ruff.lint.isort]
 known-first-party = ["{{ project_slug }}"]
+force-sort-within-sections = true
+known-third-party = ["typing_extensions"]
 
+# ── Google docstring format ───────────────────────────────────────────────────
+# Sections: Args: | Returns: | Yields: | Raises:
+[tool.ruff.lint.pydocstyle]
+convention = "google"
+
+# ── Pylint limits ─────────────────────────────────────────────────────────────
+[tool.ruff.lint.pylint]
+max-branches = 12
+max-returns = 6
+max-statements = 50
+
+# ── Formatter ────────────────────────────────────────────────────────────────
 [tool.ruff.format]
 quote-style = "double"
 indent-style = "space"
+indent-width = 4
 skip-magic-trailing-comma = false
 line-ending = "auto"
 

@@ -48,11 +48,6 @@ use_github_actions:
   help: "Add a GitHub Actions CI workflow?"
   default: true
 
-use_precommit:
-  type: bool
-  help: "Add pre-commit configuration?"
-  default: false
-
 # ─────────────────────────────────────────────
 #  Copier engine / meta settings
 # ─────────────────────────────────────────────
