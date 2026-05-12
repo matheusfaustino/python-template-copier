@@ -25,8 +25,23 @@ build-backend = "hatchling.build"
 dev-dependencies = [
     "pytest>=8.0",
     "pytest-cov>=5.0",
+    "pip-audit>=2.10.0",
     "ruff>=0.9",
+    "uv-secure>=0.17.2",
 ]
+exclude-newer = "7 days"
+exclude-newer-package = { urllib3 = "2026-05-08" }
+
+[tool.uv.pip]
+only-binary = [":all:"]
+
+[tool.uv-secure.vulnerability_criteria]
+severity = "medium"
+aliases = true
+
+[tool.uv-secure.maintainability_criteria]
+forbid_deprecated = true
+
 
 # ── Ruff ─────────────────────────────────────────────────────────────────────
 # Google Python Style Guide – mapped to ruff rules
