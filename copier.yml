@@ -1,0 +1,60 @@
+# ─────────────────────────────────────────────
+#  Copier – Python project template questions
+# ─────────────────────────────────────────────
+
+project_name:
+  type: str
+  help: "Human-readable project name (e.g. My Awesome Library)"
+
+project_slug:
+  type: str
+  help: "Python package name / slug (e.g. my_awesome_library)"
+  default: "{{ project_name | lower | replace(' ', '_') | replace('-', '_') }}"
+
+project_description:
+  type: str
+  help: "One-line description of the project"
+
+author_name:
+  type: str
+  help: "Your full name"
+
+author_email:
+  type: str
+  help: "Your e-mail address"
+
+python_version:
+  type: str
+  help: "Minimum Python version"
+  default: "3.12"
+  choices:
+    - "3.10"
+    - "3.11"
+    - "3.12"
+    - "3.13"
+
+license:
+  type: str
+  help: "License"
+  default: "MIT"
+  choices:
+    - MIT
+    - Apache-2.0
+    - GPL-3.0
+    - Proprietary
+
+use_github_actions:
+  type: bool
+  help: "Add a GitHub Actions CI workflow?"
+  default: true
+
+use_precommit:
+  type: bool
+  help: "Add pre-commit configuration?"
+  default: false
+
+# ─────────────────────────────────────────────
+#  Copier engine / meta settings
+# ─────────────────────────────────────────────
+_min_copier_version: "9"
+_subdirectory: template

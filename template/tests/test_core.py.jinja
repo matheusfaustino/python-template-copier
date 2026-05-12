@@ -1,0 +1,20 @@
+"""Tests for {{ project_slug }}.core."""
+
+import pytest
+
+from {{ project_slug }}.core import hello
+
+
+def test_hello_default() -> None:
+    assert hello() == "Hello, world!"
+
+
+def test_hello_custom_name() -> None:
+    assert hello("Alice") == "Hello, Alice!"
+
+
+@pytest.mark.parametrize("name", ["Bob", "Charlie", "123"])
+def test_hello_parametrize(name: str) -> None:
+    result = hello(name)
+    assert result.startswith("Hello,")
+    assert name in result

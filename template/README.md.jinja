@@ -1,0 +1,58 @@
+# {{ project_name }}
+
+> {{ project_description }}
+
+[![CI](https://github.com/<YOUR_ORG>/{{ project_slug }}/actions/workflows/ci.yml/badge.svg)](https://github.com/<YOUR_ORG>/{{ project_slug }}/actions)
+[![Python {{ python_version }}+](https://img.shields.io/badge/python-{{ python_version }}%2B-blue)](https://www.python.org/)
+[![Ruff](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/astral-sh/ruff/main/assets/badge/v2.json)](https://github.com/astral-sh/ruff)
+[![License: {{ license }}](https://img.shields.io/badge/License-{{ license }}-yellow.svg)](LICENSE)
+
+---
+
+## Requirements
+
+- Python {{ python_version }}+
+- [uv](https://docs.astral.sh/uv/) (`pip install uv` or `brew install uv`)
+
+## Getting started
+
+```bash
+# Clone and enter the project
+git clone <repo-url>
+cd {{ project_slug }}
+
+# Create a virtual environment and install all dependencies (including dev)
+uv sync --all-extras
+
+# Activate the virtual environment
+source .venv/bin/activate   # Linux / macOS
+# .venv\Scripts\activate    # Windows
+```
+
+## Development workflow
+
+| Task | Command |
+|---|---|
+| Run tests | `uv run pytest` |
+| Lint | `uv run ruff check .` |
+| Format | `uv run ruff format .` |
+| Lint + fix | `uv run ruff check . --fix` |
+| Type check | `uv run mypy src/` |
+
+## Project layout
+
+```
+{{ project_slug }}/
+├── src/
+│   └── {{ project_slug }}/
+│       ├── __init__.py
+│       └── ...
+├── tests/
+│   └── test_*.py
+├── pyproject.toml   # single source of truth for deps, ruff, pytest
+└── README.md
+```
+
+## Contributing
+
+See [CONTRIBUTING.md](CONTRIBUTING.md).
