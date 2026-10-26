@@ -20,6 +20,7 @@ my_project/
 ├── .gitignore
 ├── AGENTS.md            # setup, checks, and coding conventions for agents
 ├── CONTRIBUTING.md      # contributor setup and development workflow
+├── LICENSE              # MIT license
 ├── pyproject.toml        # version, dependencies, and tool configuration
 └── README.md
 ```
@@ -90,5 +91,10 @@ Copier will apply a diff and let you resolve conflicts.
 | `author_name` | – | For pyproject.toml |
 | `author_email` | – | For pyproject.toml |
 | `python_version` | `3.12` | Minimum Python |
-| `license` | `MIT` | SPDX identifier |
+| `license` | `MIT` | MIT license for generated projects |
+
+## License
+
+This template and newly generated projects use the MIT license.
+Generated projects use the supplied author name in their copyright notice.
 | `use_github_actions` | `true` | Add CI workflow |

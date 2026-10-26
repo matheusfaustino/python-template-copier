@@ -3,7 +3,8 @@ name = "{{ project_slug }}"
 version = "0.1.0"
 description = "{{ project_description }}"
 readme = "README.md"
-license = { text = "{{ license }}" }
+license = "{{ license }}"
+license-files = ["LICENSE"]
 authors = [{ name = "{{ author_name }}", email = "{{ author_email }}" }]
 requires-python = ">={{ python_version }}"
 dependencies = []
@@ -20,7 +21,7 @@ dev = [
 
 # ── Build ────────────────────────────────────────────────────────────────────
 [build-system]
-requires = ["hatchling"]
+requires = ["hatchling>=1.27"]
 build-backend = "hatchling.build"
 
 # ── uv ───────────────────────────────────────────────────────────────────────
