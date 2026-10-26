@@ -8,17 +8,19 @@ Use [Copier](https://copier.readthedocs.io/) template for Python projects powere
 my_project/
 ├── src/
 │   └── my_project/
-│       ├── __init__.py   # version declared here
-│       └── core.py       # example module
+│       ├── __init__.py   # package docstring
+│       ├── core.py       # example module
+│       └── py.typed      # declares bundled type annotations
 ├── tests/
 │   ├── conftest.py
 │   └── test_core.py
 ├── .github/
 │   └── workflows/
 │       └── ci.yml        # lint + test on push/PR
-├── .pre-commit-config.yaml
 ├── .gitignore
-├── pyproject.toml        # uv deps, ruff config, pytest config
+├── AGENTS.md            # setup, checks, and coding conventions for agents
+├── CONTRIBUTING.md      # contributor setup and development workflow
+├── pyproject.toml        # version, dependencies, and tool configuration
 └── README.md
 ```
 
@@ -29,7 +31,7 @@ my_project/
 | [uv](https://docs.astral.sh/uv/) | Fast dependency manager & virtualenv |
 | [Ruff](https://docs.astral.sh/ruff/) | Linter + formatter (replaces flake8, isort, black) |
 | [pytest](https://pytest.org/) + pytest-cov | Tests & coverage |
-| [pre-commit](https://pre-commit.com/) | Git hooks |
+| [ty](https://docs.astral.sh/ty/) | Type checking |
 | GitHub Actions | CI pipeline (lint → test) |
 
 ---
@@ -61,8 +63,7 @@ Answer the prompts, then:
 
 ```bash
 cd my-new-project
-uv sync --all-extras          # create .venv and install deps
-uv run pre-commit install     # install git hooks
+uv sync                      # create .venv and install runtime and dev dependencies
 git init && git add -A && git commit -m "chore: initial commit from template"
 ```
 
@@ -91,4 +92,3 @@ Copier will apply a diff and let you resolve conflicts.
 | `python_version` | `3.12` | Minimum Python |
 | `license` | `MIT` | SPDX identifier |
 | `use_github_actions` | `true` | Add CI workflow |
-| `use_precommit` | `true` | Add pre-commit config |

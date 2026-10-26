@@ -1,0 +1,47 @@
+# Agent guidelines for {{ project_name }}
+
+## Setup and commands
+
+Use Python {{ python_version }} or newer and uv. Run commands from the project root.
+`pyproject.toml` defines dependencies and tool settings; follow it when this guide differs.
+
+| Task | Command |
+| --- | --- |
+| Install runtime and development dependencies | `uv sync` |
+| Add a runtime dependency | `uv add <package>` |
+| Add a development tool | `uv add --dev <package>` |
+| Lint changed Python files | `uv run ruff check <files>` |
+| Format changed Python files | `uv run ruff format <files>` |
+| Check formatting without edits | `uv run ruff format --check <files>` |
+| Check types | `uv run ty check` |
+| Run a test module | `uv run pytest tests/test_core.py` |
+| Run all tests with coverage | `uv run pytest` |
+
+Replace `<files>` and the example test path with the files relevant to the change.
+Use uv rather than pip or manually managed environments. `uv sync` installs the
+`dev` dependency group by default. Add dependencies only when needed.
+
+## Code conventions
+
+- Keep importable code in `src/{{ project_slug }}/` and tests in `tests/`.
+- Keep `__init__.py` minimal and free of runtime initialization or side effects.
+- Declare the project version only in `pyproject.toml`.
+- Use absolute imports, descriptive module names, and the simplest design that solves the task.
+- Follow Ruff's configured 120-character line length, four-space indentation, and double quotes.
+- Annotate application functions and use Google-style docstrings for public functions and classes.
+  Tests do not require annotations or docstrings under the current Ruff configuration.
+- Write comments that explain non-obvious reasons; avoid commented-out code and debug statements.
+- Keep changes focused and preserve unrelated work.
+
+## Tests and validation
+
+- Add tests for changed behavior and a regression test for each bug fix.
+- Share pytest fixtures in `conftest.py`; avoid imports between test modules.
+- pytest uses `importlib` mode. Install the project with uv instead of adding `src/` to `sys.path`.
+- Prefer checks scoped to changed files and relevant tests; run broader checks when the change warrants them.
+- The default pytest command measures branch coverage and requires at least 80% coverage.
+  A focused test run can fall below that threshold because it exercises only part of the package;
+  use the full relevant suite before concluding that coverage regressed.
+- Before finishing code changes, remove scratch artifacts, format and lint changed Python files,
+  and run type checks and relevant tests. Do not weaken checks to make a change pass.
+- Report what changed, the checks performed, and any remaining failures or checks not run.

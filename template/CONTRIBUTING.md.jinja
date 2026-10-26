@@ -1,0 +1,37 @@
+# Contributing to {{ project_name }}
+
+## Setup
+
+Install Python {{ python_version }} or newer and [uv](https://docs.astral.sh/uv/),
+then run the following from the project root:
+
+```bash
+uv sync
+```
+
+Use `uv run` to run commands in the project's environment without activating it.
+Developer tools are declared in `[dependency-groups].dev` in `pyproject.toml` and
+installed by default. Use `uv add --dev <package>` to add a developer tool or
+`uv sync --no-dev` to install only the project and its runtime dependencies.
+
+## Development
+
+Keep application code in `src/{{ project_slug }}/` and tests in `tests/`.
+Add tests for changed behavior and regression tests for bug fixes.
+Use descriptive module names and follow the existing typing and docstring conventions.
+
+Before submitting changes, run:
+
+```bash
+uv run ruff format .
+uv run ruff check .
+uv run ty check
+uv run pytest
+```
+
+Ruff handles formatting and linting; ty checks types. pytest runs tests using
+`importlib` mode and enforces the coverage threshold configured in `pyproject.toml`.
+Share test fixtures through `conftest.py` rather than importing other test modules.
+
+Keep changes focused and describe the behavior changed and checks performed
+in your pull request.

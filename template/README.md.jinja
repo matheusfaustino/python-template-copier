@@ -22,7 +22,7 @@ git clone <repo-url>
 cd {{ project_slug }}
 
 # Create a virtual environment and install all dependencies (including dev)
-uv sync --all-extras
+uv sync
 
 # Activate the virtual environment
 source .venv/bin/activate   # Linux / macOS
@@ -37,7 +37,7 @@ source .venv/bin/activate   # Linux / macOS
 | Lint | `uv run ruff check .` |
 | Format | `uv run ruff format .` |
 | Lint + fix | `uv run ruff check . --fix` |
-| Type check | `uv run mypy src/` |
+| Type check | `uv run ty check` |
 
 ## Project layout
 
@@ -46,9 +46,12 @@ source .venv/bin/activate   # Linux / macOS
 ├── src/
 │   └── {{ project_slug }}/
 │       ├── __init__.py
+│       ├── py.typed # declares bundled type annotations
 │       └── ...
 ├── tests/
 │   └── test_*.py
+├── AGENTS.md       # commands and conventions for coding agents
+├── CONTRIBUTING.md # contributor setup and development workflow
 ├── pyproject.toml   # single source of truth for deps, ruff, pytest
 └── README.md
 ```
